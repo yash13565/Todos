@@ -11,7 +11,8 @@ function TodoList() {
       name: "Yashwardhan",
     },
   ]);
-
+  const [show, setShow] = useState(false);
+  const [updateValue, setUpdateValue] = useState("");
   function handleAddData() {
     setUserData([
       ...userData,
@@ -22,10 +23,20 @@ function TodoList() {
     ]);
     setValue("");
   }
-  function handleDelete(id){
-    const filterData = userData.filter(item=>item.id!==id)
-    setUserData(filterData)
-}
+  function handleDelete(id) {
+    const filterData = userData.filter((item) => item.id !== id);
+    setUserData(filterData);
+  }
+  function updateData(id) {
+    const updatedUserData = userData.map((item) =>
+    item.id === id ? { ...item, name: updateValue } : item
+  );
+  setUserData(updatedUserData);
+  setUpdateValue("");
+  }
+  function handleToggle() {
+    setShow(!show);
+  }
   return (
     <>
       <h1 className="heading">TodoList</h1>
@@ -43,7 +54,15 @@ function TodoList() {
         />
       </div>
       <div>
-        <TodoCard userData={userData} handleDelete={handleDelete}/>
+        <TodoCard
+          userData={userData}
+          handleDelete={handleDelete}
+          handleToggle={handleToggle}
+          handleUpdate={updateData}
+          show={show}
+          updateValue={updateValue}
+          setUpdateValue={setUpdateValue}
+        />
       </div>
     </>
   );
