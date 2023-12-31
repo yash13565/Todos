@@ -1,0 +1,26 @@
+.heading{
+    display: flex;
+    justify-content: center;
+}
+.inputcontainer{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+.inputs{
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    width: 15%;
+}
+.button{
+    padding: 10px;
+    border-radius: 7px;
+    color: white;
+    background-color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    border: none;
+    width: 10%;
+    cursor: pointer;
+}
