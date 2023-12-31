@@ -12,7 +12,6 @@ function Modal(props) {
     handleUpdate();
     handleToggle();
   };
-
   return (
     <div className="modalContainer">
       <Button onClick={handleToggle} text={"X"} className={"closeButn"} />

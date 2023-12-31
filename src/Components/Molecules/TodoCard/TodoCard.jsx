@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import Button from "../../Atoms/Button/Button";
+import Input from "../../Atoms/Input/Input";
 import Modal from "../Modal/Modal";
 import "./TodoCard.css";
 function TodoCard(props) {
@@ -11,37 +12,55 @@ function TodoCard(props) {
     show,
     updateValue,
     setUpdateValue,
+    search,
+    handleSearch,
+    handleComplete
   } = props;
-  
   return (
     <div className="main-cont">
-      {userData?.map((item) => (
-        <div key={item.id} className="cardContainer">
-          <p className="para">{item.name}</p>
-          <div className="buttonContainer">
-            <Button
-              text={"update"}
-              className={"buttonStyle"}
-              onClick={handleToggle}
-            />
-            <Button
-              text={"Delete"}
-              className={"buttonStyle"}
-              onClick={() => handleDelete(item.id)}
-            />
+          <h5 className="todoCount">Remaining Todos: {userData.filter(x=>!x.completed).length}</h5>
+      <div className="inputContainer">
+        <Input
+          className="searchInput"
+          placeholder="searchhere...."
+          value={search}
+          onChange={handleSearch}
+        />
+      </div>
+      {userData
+        ?.filter((val) => val.name.toLowerCase().includes(search.toLowerCase()))
+        ?.map((item) => (
+          <div key={item.id} className="cardContainer">
+            <p className={item.completed? 'complete':"para"}>{item.name}</p>
+            <div className="buttonContainer">
+              <Button
+                text={"Complete"}
+                className={"buttonStyle"}
+                onClick={()=>handleComplete(item.id)}
+              />
+              <Button
+                text={"update"}
+                className={"buttonStyle"}
+                onClick={()=>handleToggle()}
+              />
+              <Button
+                text={"Delete"}
+                className={"buttonStyle"}
+                onClick={() => handleDelete(item.id)}
+              />
+            </div>
+            {show ? (
+              <Modal
+                handleUpdate={() => handleUpdate(item.id)}
+                handleToggle={handleToggle}
+                updateValue={updateValue}
+                setUpdateValue={setUpdateValue}
+              />
+            ) : (
+              ""
+            )}
           </div>
-          {show ? (
-            <Modal
-              handleUpdate={() => handleUpdate(item.id)}
-              handleToggle={handleToggle}
-              updateValue={updateValue}
-              setUpdateValue={setUpdateValue}
-            />
-          ) : (
-            ""
-          )}
-        </div>
-      ))}
+        ))}
     </div>
   );
 }
