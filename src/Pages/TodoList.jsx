@@ -9,7 +9,7 @@ function TodoList() {
     {
       id: Math.random() * 100,
       name: "Yashwardhan",
-      completed:false
+      completed: false,
     },
   ]);
   const [show, setShow] = useState(false);
@@ -32,7 +32,7 @@ function TodoList() {
   }
 
   function updateData(id) {
-    const updatedUserData = userData.map((item) =>
+    const updatedUserData = userData?.map((item) =>
       item.id === id ? { ...item, name: updateValue } : item
     );
     setUserData(updatedUserData);
@@ -46,9 +46,11 @@ function TodoList() {
   function handleSearch(e) {
     setSearch(e.target.value);
   }
-  function handleComplete(id){
-    const completedTodo = userData?.map(x=> x.id === id ? {...x,completed:true}:x)
-    setUserData(completedTodo)
+  function handleComplete(id) {
+    const completedTodo = userData?.map((x) =>
+      x.id === id ? { ...x, completed: true } : x
+    );
+    setUserData(completedTodo);
   }
   return (
     <>

@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import Button from "../../Atoms/Button/Button";
 import Input from "../../Atoms/Input/Input";
 import Modal from "../Modal/Modal";
@@ -16,6 +17,7 @@ function TodoCard(props) {
     handleSearch,
     handleComplete
   } = props;
+  const [value,setValue]= useState()
   return (
     <div className="main-cont">
           <h5 className="todoCount">Remaining Todos: {userData.filter(x=>!x.completed).length}</h5>
@@ -41,7 +43,7 @@ function TodoCard(props) {
               <Button
                 text={"update"}
                 className={"buttonStyle"}
-                onClick={()=>handleToggle()}
+                onClick={()=>{handleToggle();setValue(item.id)}}
               />
               <Button
                 text={"Delete"}
@@ -49,9 +51,9 @@ function TodoCard(props) {
                 onClick={() => handleDelete(item.id)}
               />
             </div>
-            {show ? (
+            {show  ? (
               <Modal
-                handleUpdate={() => handleUpdate(item.id)}
+                handleUpdate={() => handleUpdate(value)}
                 handleToggle={handleToggle}
                 updateValue={updateValue}
                 setUpdateValue={setUpdateValue}
